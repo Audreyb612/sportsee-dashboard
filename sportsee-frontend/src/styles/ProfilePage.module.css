@@ -1,0 +1,59 @@
+.profilePage {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 40px;
+  }
+  
+  .leftColumn,
+  .rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .identityCard,
+  .infoCard,
+  .statsGrid article {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+  }
+  
+  .identityCard {
+    text-align: center;
+  }
+  
+  .identityCard img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .identityCard h1 {
+    color: #102cff;
+    margin: 24px 0 8px;
+  }
+  
+  .infoCard h2,
+  .rightColumn h2 {
+    color: #102cff;
+  }
+  
+  .statsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .statsGrid article {
+    min-height: 130px;
+    color: #6b7280;
+  }
+  
+  .statsGrid strong {
+    display: block;
+    margin-top: 18px;
+    color: #102cff;
+    font-size: 28px;
+  }

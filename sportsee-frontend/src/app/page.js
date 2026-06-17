@@ -1,21 +1,42 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { useUserData } from "@/hooks/useUserData";
+import { ROUTES } from "@/utils/routes";
+import styles from "@/styles/LoginPage.module.css";
 
-export default function Page() {
-  const { token } = useAuth();
-  const { user, activity, loading, error } = useUserData(token);
+export default function LoginPage() {
+  const router = useRouter();
+  const { loginUser } = useAuth();
 
-  if (loading) return <main>Chargement...</main>;
-  if (error) return <main>Erreur : {error}</main>;
+  function handleSubmit(event) {
+    event.preventDefault();
+    loginUser();
+    router.push(ROUTES.DASHBOARD);
+  }
 
   return (
-    <main>
-      <h1>Bonjour {user?.firstName}</h1>
-      <p>Distance totale : {user?.totalDistance} km</p>
-      <p>Durée totale : {user?.totalDuration} min</p>
-      <p>Nombre de sessions : {activity.length}</p>
+    <main className={styles.page}>
+      <section className={styles.leftPanel}>
+       <img className={styles.logo} src="/images/sportsee-logo.png" alt="logo bleu marine SportSee et graphique en histogramme rouges et bleus"/>
+
+        <form className={styles.card} onSubmit={handleSubmit}>
+          <h1>Transformez<br />vos stats en résultats</h1>
+          <h2>Se connecter</h2>
+
+          <label>Adresse email</label>
+          <input type="email" />
+
+          <label>Mot de passe</label>
+          <input type="password" />
+
+          <button type="submit">Se connecter</button>
+
+          <p>Mot de passe oublié ?</p>
+        </form>
+      </section>
+
+      <section className={styles.rightPanel}></section>
     </main>
   );
 }

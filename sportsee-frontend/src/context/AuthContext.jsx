@@ -1,28 +1,31 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
-import { login } from "@/services/api";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext(null);
+const TOKEN_KEY = "sportsee_token";
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
 
-  async function loginUser(username, password) {
-    const auth = await login(username, password);
-    setToken(auth.token);
-    setUserId(auth.userId);
-    return auth;
+  useEffect(() => {
+    const savedToken = localStorage.getItem(TOKEN_KEY);
+    if (savedToken) setToken(savedToken);
+  }, []);
+
+  function loginUser() {
+    const fakeToken = "mock-token-sportsee";
+    localStorage.setItem(TOKEN_KEY, fakeToken);
+    setToken(fakeToken);
   }
 
   function logoutUser() {
+    localStorage.removeItem(TOKEN_KEY);
     setToken(null);
-    setUserId(null);
   }
 
   return (
-    <AuthContext.Provider value={{ token, userId, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ token, loginUser, logoutUser }}>
       {children}
     </AuthContext.Provider>
   );
